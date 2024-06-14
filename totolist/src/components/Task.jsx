@@ -4,7 +4,7 @@ import Delete from "./Delete"
 function Task({tasks, setTask}){
 
     function toggleTask(id){
-        const updatedTask = tasks.map((task, index) => index===id?{...task, status: !task.status}: task)
+        const updatedTask = tasks.map((task) => task.id===id?{...task, status: !task.status}: task)
         setTask(updatedTask)
     }
     return(

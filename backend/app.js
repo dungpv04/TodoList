@@ -21,8 +21,12 @@ app.get('/', async function(req, res){
     res.json(data);
 });
 
-app.get("/hello", function(req, res){
-    res.send("Hello");
+app.post("/", express.json(), async function(req, res){
+    var taskName = req.body
+    const post = await controller.post(taskName.name);
+    if(post)
+        res.send({"status": "OK"});
+    else res.status(500).send("Error");
 });
 
 app.listen(port);

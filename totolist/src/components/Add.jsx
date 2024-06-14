@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function Add({tasks, setTask}){
 
@@ -9,8 +9,22 @@ function Add({tasks, setTask}){
             setTask([...tasks, {id: Math.random() ,name: newTask, status: false}])
             setNewTask('')
             setAlertMsg('')
+            Post();
         }
+
         else setAlertMsg("Fill out task name !")
+    }
+
+    async function Post(){
+        const option = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: newTask })
+        }
+
+        const res = await fetch('http://localhost:8080/', option);
+        const data = await res.json();
+        console.log(data);
     }
 
     function onChangeHandle(e){
