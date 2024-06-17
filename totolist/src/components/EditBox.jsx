@@ -5,14 +5,15 @@ function EditBox({setStatus, status, id, tasks, setTask}){
         if(newTask.trim() !== ''){
             const updatedTask = tasks.map(task => task.id===id?{...task, name: newTask}: task)
             setTask(updatedTask)
-            setNewTask('')
             setStatus({status: false, label: "Edit"})
             const option = {
                 method: "PUT",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({id: id, name: newTask })
             }
-            const put = await fetch('http://localhost:8080/edit', option)
+            const url = 'http://localhost:8080/tasks/' + id + '/' + newTask
+            const put = await fetch(url, option)
+            setNewTask('')
         }
     }
     if(status){

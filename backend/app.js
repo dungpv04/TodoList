@@ -16,35 +16,32 @@ app.use(function (req, res, next) {
     next()
 });
 
-app.get('/', async function(req, res){
+app.get('/tasks', async function(req, res){
     const data = await controller.get();
     res.json(data);
 });
 
-app.post("/", express.json(), async function(req, res){
+app.post("/tasks/:name", express.json(), async function(req, res){
     var taskName = req.body
     console.log(req.body)
     const post = await controller.post(taskName.name);
-    if(post)
-        res.send({"status": "OK"});
-    else res.status(500).send("Error");
+    res.status(200)
 });
 
-app.put("/toggleTask", express.json(), async function(req, res){
+app.put("/tasks/:id/:status", express.json(), async function(req, res){
     const patch = await controller.patch(req.body, "status");
     res.send({"status": "OK"});
 });
 
-app.put("/edit", express.json(), async function(req, res){
+app.put("/tasks/:id/:name", express.json(), async function(req, res){
     console.log(req.body)
     console.log(req.body.id)
     const patch = await controller.patch(req.body, "edit")
 });
 
-app.delete("/", express.json(), async function(req, res){
+app.delete("/tasks/:id", express.json(), async function(req, res){
     const del = await controller.delete(req.body);
     res.send({"status": "OK"})
 });
-
 
 app.listen(port);

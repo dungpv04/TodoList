@@ -13,7 +13,8 @@ function Task({tasks, setTask}){
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({id: changedTask[0].id, name: changedTask[0].name, status: changedTask[0].status})
         }
-        const res = await fetch('http://localhost:8080/toggleTask', option);
+        const url = 'http://localhost:8080/tasks/' + changedTask[0].id + '/' + changedTask[0].status 
+        const res = await fetch(url, option);
         const data = await res.json();
     }
 

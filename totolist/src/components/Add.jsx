@@ -7,15 +7,17 @@ function Add({tasks, setTask}){
     async function onSubmitHandle(){
         if(newTask.trim() !== ''){
             setTask([...tasks, {id: Math.random() ,name: newTask, status: false}])
-            setNewTask('')
-            setAlertMsg('')
+            
             const option = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: newTask })
             }
-            const res = await fetch('http://localhost:8080/', option);
+            const url = 'http://localhost:8080/tasks/' + newTask;
+            const res = await fetch(url, option);
             const data = await res.json();
+            setNewTask('')
+            setAlertMsg('')
         }
 
         else setAlertMsg("Fill out task name !")

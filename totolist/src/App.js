@@ -7,7 +7,7 @@ import Add from './components/Add';
 function App() {
   const[tasks, setTask] = useState([])
   useEffect(() =>{
-    fetch('http://localhost:8080/')
+    fetch('http://localhost:8080/tasks')
     .then((res) => {
       return res.json();
     })
