@@ -13,7 +13,7 @@ function Add({tasks, setTask}){
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: newTask })
             }
-            const url = 'http://localhost:8080/tasks/' + newTask;
+            const url = 'http://localhost:8080/tasks';
             const res = await fetch(url, option);
             const data = await res.json();
             setNewTask('')

@@ -9,9 +9,9 @@ function EditBox({setStatus, status, id, tasks, setTask}){
             const option = {
                 method: "PUT",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({id: id, name: newTask })
+                body: JSON.stringify({name: newTask })
             }
-            const url = 'http://localhost:8080/tasks/' + id + '/' + newTask
+            const url = 'http://localhost:8080/tasks/' + id + '/name'
             const put = await fetch(url, option)
             setNewTask('')
         }

@@ -50,19 +50,19 @@ module.exports.post = async function post(task){
     }
 }
 
-module.exports.patch = async function patchStatus(task, prop){
+module.exports.patch = async function patchStatus(id, task, prop){
     var final;
-    console.log(task.id)
+    console.log(id)
     if(task.status)
         final = 1;
     else final = 0;
     let query = '';
-    if(prop === "status") query = 'update tasks set status = ' + final + ' where id = ' + task.id;
-    else if(prop === "edit") query = 'update tasks set name = ' + "'" + task.name + "'" + ' where id = ' + task.id;
+    if(prop === "status") query = 'update tasks set status = ' + final + ' where id = ' + id;
+    else if(prop === "edit") query = 'update tasks set name = ' + "'" + task.name + "'" + ' where id = ' + id;
     const patch = await ExecuteQuery(query)
 }
 
-module.exports.delete = async function deleteTask(task){
-    const query = 'delete from tasks where id = ' + task.id;
+module.exports.delete = async function deleteTask(id){
+    const query = 'delete from tasks where id = ' + id;
     const del = await ExecuteQuery(query);
 }

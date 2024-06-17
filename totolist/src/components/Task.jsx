@@ -11,9 +11,9 @@ function Task({tasks, setTask}){
         const option = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({id: changedTask[0].id, name: changedTask[0].name, status: changedTask[0].status})
+            body: JSON.stringify({status: changedTask[0].status})
         }
-        const url = 'http://localhost:8080/tasks/' + changedTask[0].id + '/' + changedTask[0].status 
+        const url = 'http://localhost:8080/tasks/' + changedTask[0].id + '/status'
         const res = await fetch(url, option);
         const data = await res.json();
     }

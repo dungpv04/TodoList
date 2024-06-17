@@ -5,7 +5,7 @@ function Delete({tasks, setTask, id}){
         const option = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: id })
+            body: JSON.stringify({})
         }
         const url = 'http://localhost:8080/tasks/' + id
         const del = await fetch(url, option)
