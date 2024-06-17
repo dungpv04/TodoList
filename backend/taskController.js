@@ -50,16 +50,19 @@ module.exports.post = async function post(task){
     }
 }
 
-/*module.exports.get = async function get(){
-    try{
-        const connection = await sql.connect(config);
-        const request = new sql.Request();
-        const query = await request.query("select * from tasks");
-        connection.close();
-        return query.recordset;
-    }
-    catch(err){
-        console.log(err);
-        return null;
-    }
-}*/
+module.exports.patch = async function patchStatus(task, prop){
+    var final;
+    console.log(task.id)
+    if(task.status)
+        final = 1;
+    else final = 0;
+    let query = '';
+    if(prop === "status") query = 'update tasks set status = ' + final + ' where id = ' + task.id;
+    else if(prop === "edit") query = 'update tasks set name = ' + "'" + task.name + "'" + ' where id = ' + task.id;
+    const patch = await ExecuteQuery(query)
+}
+
+module.exports.delete = async function deleteTask(task){
+    const query = 'delete from tasks where id = ' + task.id;
+    const del = await ExecuteQuery(query);
+}

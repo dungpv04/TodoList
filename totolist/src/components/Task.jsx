@@ -1,12 +1,22 @@
-import React from "react"
+import React, { useState } from "react"
 import Edit from "./Edit"
 import Delete from "./Delete"
 function Task({tasks, setTask}){
 
-    function toggleTask(id){
+    async function toggleTask(id){
         const updatedTask = tasks.map((task) => task.id===id?{...task, status: !task.status}: task)
+        const changedTask = updatedTask.filter(x => x.id === id)
         setTask(updatedTask)
+        console.log(changedTask[0])
+        const option = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({id: changedTask[0].id, name: changedTask[0].name, status: changedTask[0].status})
+        }
+        const res = await fetch('http://localhost:8080/toggleTask', option);
+        const data = await res.json();
     }
+
     return(
         <ul id="task-list">
             {tasks.map((task) =>(

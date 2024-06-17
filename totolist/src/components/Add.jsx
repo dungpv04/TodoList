@@ -4,27 +4,21 @@ function Add({tasks, setTask}){
 
     const[newTask, setNewTask] = useState('')
     const[alertMsg, setAlertMsg] = useState('')
-    function onSubmitHandle(){
+    async function onSubmitHandle(){
         if(newTask.trim() !== ''){
             setTask([...tasks, {id: Math.random() ,name: newTask, status: false}])
             setNewTask('')
             setAlertMsg('')
-            Post();
+            const option = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: newTask })
+            }
+            const res = await fetch('http://localhost:8080/', option);
+            const data = await res.json();
         }
 
         else setAlertMsg("Fill out task name !")
-    }
-
-    async function Post(){
-        const option = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: newTask })
-        }
-
-        const res = await fetch('http://localhost:8080/', option);
-        const data = await res.json();
-        console.log(data);
     }
 
     function onChangeHandle(e){
